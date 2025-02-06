@@ -73,7 +73,7 @@ export default defineComponent({
   align-items: center;
   flex-direction: column;
   flex-grow: 1;
-  height: 100vh;
+  height: 80vh;
 }
 .hi {
   font-size: 23px;
