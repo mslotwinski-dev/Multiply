@@ -8,13 +8,13 @@
       Wpisz <span>{{ x }} x {{ y }}</span>
       <!-- <input type="number" v-model="guess" @keyup="Next()" /> -->
     </div>
-    Wynik: {{ good }}
+    Wynik: {{ score }}
     <div class="field" v-html="guess" />
     <div class="buttons">
       <div
         class="button"
         :key="nr"
-        v-for="nr in [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]"
+        v-for="nr in [7, 8, 9, 4, 5, 6, 1, 2, 3, 0]"
         @click="Add(nr)"
       >
         {{ nr }}
@@ -36,7 +36,7 @@ export default defineComponent({
       x: 0,
       y: 0,
       guess: '',
-      good: -1,
+      score: 0,
     }
   },
   methods: {
@@ -54,14 +54,29 @@ export default defineComponent({
     Next() {
       if (Number(this.guess) == this.x * this.y) {
         this.guess = ''
-        this.good++
+        window.localStorage.setItem(
+          'score',
+          String(Number(window.localStorage.getItem('score'))! + 1)
+        )
+        this.score++
         this.x = this.Rand()
         this.y = this.Rand()
       }
     },
   },
   mounted() {
+    if (!window.localStorage.getItem('score')) {
+      window.localStorage.setItem('score', '0')
+    }
+
+    this.score = Number(window.localStorage.getItem('score'))
     this.Next()
+
+    window.localStorage.setItem(
+      'score',
+      String(Number(window.localStorage.getItem('score'))! - 1)
+    )
+    this.score--
   },
 })
 </script>
