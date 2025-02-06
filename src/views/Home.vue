@@ -8,6 +8,7 @@
       Wpisz <span>{{ x }} x {{ y }}</span>
       <!-- <input type="number" v-model="guess" @keyup="Next()" /> -->
     </div>
+    Wynik: {{ good }}
     <div class="field" v-html="guess" />
     <div class="buttons">
       <div
@@ -35,6 +36,7 @@ export default defineComponent({
       x: 0,
       y: 0,
       guess: '',
+      good: -1,
     }
   },
   methods: {
@@ -47,11 +49,12 @@ export default defineComponent({
       this.Next()
     },
     Rand(): number {
-      return Math.floor(Math.random() * 10)
+      return Math.floor(Math.random() * 9) + 1
     },
     Next() {
       if (Number(this.guess) == this.x * this.y) {
         this.guess = ''
+        this.good++
         this.x = this.Rand()
         this.y = this.Rand()
       }
@@ -87,6 +90,7 @@ span {
 
 .home {
   font-size: 20px;
+  margin-bottom: 10px;
 }
 
 .field {
